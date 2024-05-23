@@ -1,0 +1,215 @@
+---
+format:
+  revealjs:
+    incremental: false
+    css: styles.css
+execute: 
+  echo: true
+---
+
+# The Unix Shell
+
+SWC @ University of Twente
+
+2024-05-27
+
+Joel H. Nitta
+
+<https://joelnitta.github.io/2024-05-27-tudelft-online-bash>
+
+## Prep
+
+- Download [shell-lesson-data.zip](https://swcarpentry.github.io/shell-novice/data/shell-lesson-data.zip) and move the file to your Desktop.
+
+- Unzip/extract the file. **You should end up with a new folder called shell-lesson-data on your Desktop.**
+
+## Open a new shell
+
+For instructions by operating system, see the [Shell Lesson](https://swcarpentry.github.io/shell-novice/#where-to-type-commands-how-to-open-a-new-shell)
+
+## Human-computer interaction
+
+- Humans interact with computers using **GUI** (graphical user interface) or **CLI** (command-line interface).
+
+- **GUI**: Intuitive, menu-driven, but not efficient for repetitive tasks.
+
+- **CLI** (Unix shell): Efficient for repetitive tasks, automates tasks quickly.
+
+## Introduction to the Shell
+
+- The shell **interprets** and **runs** the commands typed by the user.
+
+- Popular Unix shell: **Bash** (**B**ourne **A**gain **SH**ell).
+
+- Benefits of using the shell:
+  - Automates repetitive tasks
+  - Efficient data handling with powerful pipelines
+  - Essential for remote machine interaction and high-performance computing
+
+---
+
+- Today we will learn how to interact with the shell via **commands**
+
+## Shell interface
+
+When you open the shell, you should see something like this:
+
+```
+$
+```
+
+## Shell interface
+
+- The `$` is the **prompt**, where you type your commands
+
+- Depending on your setup, it may look a little different, for example:
+
+```
+nelle@localhost $
+```
+
+## `ls`
+
+The first command we will learn is `ls`, which **lists** the content of your current directory (we will come back to this later):
+
+```
+ls
+```
+
+```
+Desktop     Downloads   Movies      Pictures
+Documents   Library     Music       Public
+```
+
+## Nelle's Pipeline
+
+- The example dataset is based on a story about "Nelle Nemo"
+
+- Context: Nelle Nemo is a marine biologist who samples marine life.
+
+- Nelle's Task: Process 1520 samples with `goostats.sh` to measure protein abundance.
+
+- Challenge: Using a GUI, Nelle would need to manually run 1520 files, taking over 12 hours. **Can Nelle do this more efficiently with the shell?**
+
+## Navigating files and folders
+
+### Questions
+
+- How can I move around on my computer?
+
+- How can I see what files and directories I have?
+
+- How can I specify the location of a file or directory on my computer?
+
+## What is a File System?
+
+- **File System**: Manages files and directories.
+  - **Files**: Hold information (data).
+  - **Directories** (= Folders): Hold files or other directories.
+
+## Where are we?
+
+Use `pwd` to show your current working directory (where you "are" in your computer)
+
+
+---
+
+![](https://swcarpentry.github.io/shell-novice/fig/filesystem.svg)
+
+## Slashes
+
+- There are two meanings for the `/` character.
+  - When it appears at the front of a file or directory name, it refers to the **root directory**.
+  - When it appears inside a path, it’s just a **separator**.
+
+---
+
+![](https://swcarpentry.github.io/shell-novice/fig/home-directories.svg)
+
+For example, Nelle's files are stored in `/Users/nelle.`
+
+## List files with `ls`
+
+- Use the `-F` **option** to adjust the output:
+  - a trailing `/` indicates that this is a directory
+  - `@` indicates a link
+  - `*` indicates an executable
+
+```
+ls -F
+```
+
+## Clear the terminal
+
+You can clear a cluttered terminal with `clear`
+
+## Help
+
+Get a help menu by adding `--help`:
+
+```
+ls --help
+```
+
+## Help
+
+Or, add `man` in front of the command:
+
+```
+man ls
+```
+
+## Exploring other directories
+
+```
+ls -F Desktop
+```
+
+## Move into other directories with `cd`
+
+```
+cd Desktop
+cd shell-lesson-data
+cd exercise-data
+```
+
+## Shortcuts for moving: `..`
+
+`..` takes you one directory higher
+
+```
+cd ..
+```
+
+## Shortcuts for moving: `..`
+
+Note that if you use `ls -a` to show everything, you will see `..`
+
+## Shortcuts for moving: `~`
+
+You can use `~` to move to your **home directory**
+
+## Shortcuts for moving: `-`
+
+You can use `-` to move back to the directory you just came from
+
+## Absolute vs. relative paths
+
+If you type a path that does not start with `/`, it means you are talking about a folder or file **relative to your current location**
+
+If you type a path that starts with `/`, it means you are talking about a path **from the root of the file system**
+
+---
+
+## Challenge: relative paths {.smaller}
+
+![](https://swcarpentry.github.io/shell-novice/fig/filesystem-challenge.svg){height=400px}
+
+
+If `pwd` displays `/Users/thing`, **what will `ls -F ../backup` display?**
+
+1. `../backup: No such file or directory`
+1. `2012-12-01 2013-01-08 2013-01-27`
+1. `2012-12-01/ 2013-01-08/ 2013-01-27/`
+1. `original/ pnas_final/ pnas_sub/`
+
