@@ -9,7 +9,7 @@ execute:
 
 # The Unix Shell
 
-SWC @ University of Twente
+[SWC @ University of Twente (Online)](https://4turesearchdata-carpentries.github.io/2024-05-27-tudelft-online/)
 
 2024-05-27
 
@@ -17,9 +17,9 @@ Joel H. Nitta
 
 <https://joelnitta.github.io/2024-05-27-tudelft-online-bash>
 
-# Introduction
+# [Set up](https://swcarpentry.github.io/shell-novice/index.html)
 
-## Prep
+## Example data
 
 - Download [shell-lesson-data.zip](https://swcarpentry.github.io/shell-novice/data/shell-lesson-data.zip) and move the file to your Desktop.
 
@@ -29,6 +29,8 @@ Joel H. Nitta
 
 For instructions by operating system, see the [Shell Lesson](https://swcarpentry.github.io/shell-novice/#where-to-type-commands-how-to-open-a-new-shell)
 
+# [Introducing the shell](https://swcarpentry.github.io/shell-novice/01-intro.html)
+
 ## Human-computer interaction
 
 - Humans interact with computers using **GUI** (graphical user interface) or **CLI** (command-line interface).
@@ -37,7 +39,7 @@ For instructions by operating system, see the [Shell Lesson](https://swcarpentry
 
 - **CLI** (Unix shell): Efficient for repetitive tasks, automates tasks quickly.
 
-## Introduction to the Shell
+## The Shell
 
 - The shell **interprets** and **runs** the commands typed by the user.
 
@@ -74,7 +76,7 @@ nelle@localhost $
 
 The first command we will learn is `ls`, which **lists** the content of your current directory (we will come back to this later):
 
-```
+```bash
 ls
 ```
 
@@ -86,14 +88,12 @@ Documents   Library     Music       Public
 ## Nelle's Pipeline
 
 - The example dataset is based on a story about "Nelle Nemo"
+  - Context: Nelle Nemo is a marine biologist who samples marine life.
+  - Nelle's Goal: Process 1520 samples with `goostats.sh` to measure protein abundance.
 
-- Context: Nelle Nemo is a marine biologist who samples marine life.
+Using a GUI, Nelle would need to manually run 1520 files, taking over 12 hours. **Can Nelle do this more efficiently with the shell?**
 
-- Nelle's Task: Process 1520 samples with `goostats.sh` to measure protein abundance.
-
-- Challenge: Using a GUI, Nelle would need to manually run 1520 files, taking over 12 hours. **Can Nelle do this more efficiently with the shell?**
-
-# Navigating files and folders
+# [Navigating files and folders](https://swcarpentry.github.io/shell-novice/02-filedir.html)
 
 ## Questions
 
@@ -137,7 +137,7 @@ For example, Nelle's files are stored in `/Users/nelle.`
   - `@` indicates a link
   - `*` indicates an executable
 
-```
+```bash
 ls -F
 ```
 
@@ -149,7 +149,7 @@ You can clear a cluttered terminal with `clear`
 
 Get a help menu by adding `--help`:
 
-```
+```bash
 ls --help
 ```
 
@@ -157,13 +157,13 @@ ls --help
 
 Or, add `man` in front of the command:
 
-```
+```bash
 man ls
 ```
 
 ## Challenge: `ls` {.smaller}
 
-![](https://swcarpentry.github.io/shell-novice/fig/filesystem-challenge.svg){height=400px}
+![](https://swcarpentry.github.io/shell-novice/fig/filesystem-challenge.svg){height=250px}
 
 If `pwd` displays `/Users/backup`, and `-r` tells `ls` to display things in reverse order, **what command(s) will result in the following output:**
 
@@ -177,13 +177,13 @@ pnas_sub/ pnas_final/ original/
 
 ## Exploring other directories
 
-```
+```bash
 ls -F Desktop
 ```
 
 ## Move into other directories with `cd`
 
-```
+```bash
 cd Desktop
 cd shell-lesson-data
 cd exercise-data
@@ -193,7 +193,7 @@ cd exercise-data
 
 `..` takes you one directory higher
 
-```
+```bash
 cd ..
 ```
 
@@ -219,7 +219,7 @@ If you type a path that starts with `/`, it means you are talking about a path *
 
 ## Challenge: relative paths {.smaller}
 
-![](https://swcarpentry.github.io/shell-novice/fig/filesystem-challenge.svg){height=400px}
+![](https://swcarpentry.github.io/shell-novice/fig/filesystem-challenge.svg){height=250px}
 
 
 If `pwd` displays `/Users/thing`, **what will `ls -F ../backup` display?**
@@ -247,15 +247,15 @@ The shell will finish typing the names of files and folders for you when you pre
 
 Try it from `~/Desktop/shell-lesson-data/`
 
-```
+```bash
 ls north-pacific-gyre/
 ```
 
-```
+```bash
 ls north-pacific-gyre/goo
 ```
 
-# Working With Files and Directories
+# [Working With Files and Directories](https://swcarpentry.github.io/shell-novice/03-create.html)
 
 ## Questions
 
@@ -269,7 +269,7 @@ ls north-pacific-gyre/goo
 
 - Have a look around, then create a new directory called `thesis`:
 
-```
+```bash
 mkdir thesis
 ```
 
@@ -277,13 +277,13 @@ mkdir thesis
 
 You can create a nested directory using `-p`
 
-```
+```bash
 mkdir -p ../project/data ../project/results
 ```
 
-Check what you did (`-R` option to the ls command will list all nested subdirectories within a directory):
+Check what you did (`-R` is the option to `ls` that will list all nested subdirectories within a directory):
 
-```
+```bash
 ls -FR ../project
 ```
 
@@ -297,7 +297,7 @@ ls -FR ../project
 
 `nano` is a text editor program. It will create a file and open it for editing.
 
-```
+```bash
 cd thesis
 nano draft.txt
 ```
@@ -310,13 +310,13 @@ Press `Ctrl+o` to save (as indicated by `^0`), then `Ctrl+x` to exit
 
 ## Create a text file with `touch`
 
-```
+```bash
 touch my_file.txt
 ```
 
 ## Delete a file with `rm`
 
-```
+```bash
 rm my_file.txt
 ```
 
@@ -326,13 +326,13 @@ rm my_file.txt
 
 Enter `shell-lesson-data/exercise-data/writing`:
 
-```
+```bash
 cd ~/Desktop/shell-lesson-data/exercise-data/writing
 ```
 
 Let's rename `draft.txt`:
 
-```
+```bash
 mv thesis/draft.txt thesis/quotes.txt
 ```
 
@@ -344,7 +344,7 @@ mv thesis/draft.txt thesis/quotes.txt
 
 Let's move `quotes.txt` into our current directory:
 
-```
+```bash
 mv thesis/quotes.txt .
 ```
 
@@ -354,7 +354,7 @@ Check `ls thesis`
 
 - `cp` is similar to `mv`, but copies instead of moves
 
-```
+```bash
 cp quotes.txt thesis/quotations.txt
 ls quotes.txt thesis/quotations.txt
 ```
@@ -363,7 +363,7 @@ ls quotes.txt thesis/quotations.txt
 
 - Note that you can't just `cp` a folder:
 
-```
+```bash
 cp thesis thesis_backup
 ```
 
@@ -375,7 +375,7 @@ cp: thesis is a directory (not copied).
 
 - To copy a folder and all its contents, use the `-r` (**r**ecursive) option
 
-```
+```bash
 cp -r thesis thesis_backup
 ```
 
@@ -383,7 +383,7 @@ cp -r thesis thesis_backup
 
 - Similar to using `-r` for `cp`, you need `-r` to delete a folder:
 
-```
+```bash
 rm -r thesis
 ```
 
@@ -394,7 +394,7 @@ rm -r thesis
 - You can move or copy multiple files to a folder by typing all the file names first, then the folder last.
   - Let's test this in `shell-lesson-data/exercise-data`:
 
-```
+```bash
 mkdir backup
 cp creatures/minotaur.dat creatures/unicorn.dat backup/
 ```
@@ -443,19 +443,19 @@ ethane.pdb methane.pdb
 
 Jamie is working on a project, and she sees that her files aren’t very well organized:
 
-```
+```bash
 $ ls -F
 analyzed/  fructose.dat    raw/   sucrose.dat
 ```
 
 The `fructose.dat` and `sucrose.dat` files contain output from her data analysis. **What command(s) covered in this lesson does she need to run so that the commands below will produce the output shown?**
 
-```
+``` bash
 $ ls -F
 analyzed/   raw/
 ```
 
-```
+``` bash
 $ ls analyzed
 fructose.dat    sucrose.dat
 ```
@@ -477,7 +477,7 @@ Assume that the previous experiment is in a folder called `2016-05-18`, which co
 
 [See answer options here](https://swcarpentry.github.io/shell-novice/03-create.html#reproduce-a-folder-structure)
 
-# Pipes and Filters
+# [Pipes and Filters](https://swcarpentry.github.io/shell-novice/04-pipefilter.html)
 
 ## Questions
 
@@ -485,5 +485,145 @@ Assume that the previous experiment is in a folder called `2016-05-18`, which co
 
 - How can I show only part of the output?
 
-## 
+## Example: how big are the `pdb` files?
 
+- Nelle needs to determine the `pdb` file **with the fewest lines of text** in the `shell-lesson-data/exercise-data/alkanes` directory.
+
+- She can do this with `wc`, which counts text in a file:
+
+```bash
+$ wc cubane.pdb
+20  156 1158 cubane.pdb
+```
+
+- The output shows number of lines, words, and characters
+
+## Use a wildcard to apply `wc` to all files
+
+Check the number of lines of text in all `.pdb` files:
+
+```bash
+wc -l *.pdb
+```
+
+This works for a few, but what if we had thousands?
+
+## Save output to a text file
+
+Let's send the results to a file with `>` and read out the contents with `cat`:
+
+```bash
+wc -l *.pdb > lengths.txt
+cat lengths.txt
+```
+
+(note that `>>` will **add to** an existing file)
+
+## Sort the output
+
+Next, use `sort` to sort the output, then save it to a file, then finally get the first entry of that file with `head`:
+
+```bash
+sort -n lengths.txt
+sort -n lengths.txt > sorted-lengths.txt
+head -n 1 sorted-lengths.txt
+```
+
+Whew! We did it!
+
+## Challenge: Appending Data {.smaller}
+
+`tail` is similar to `head`, but prints lines from the **end of a file instead**.
+
+Consider the file `shell-lesson-data/exercise-data/animal-counts/animals.csv`. After these commands, select the answer that corresponds to the file `animals-subset.csv`:
+
+```bash
+$ head -n 3 animals.csv > animals-subset.csv
+$ tail -n 2 animals.csv >> animals-subset.csv
+```
+
+1.  The first three lines of `animals.csv`
+2.  The last two lines of `animals.csv`
+3.  The first three lines and the last two lines of `animals.csv`
+4.  The second and third lines of `animals.csv`
+
+## The pipe
+
+- So that worked, but it relied on two intermediate text files (`lengths.txt` and `sorted-lengths.txt`). That is confusing.
+
+- We can streamline the analysis by sending the results of one command directly into the input of another with the pipe: `|`
+
+```bash
+sort -n lengths.txt | head -n 1
+```
+
+## Chaining pipes
+
+- In fact, we can **combine multiple commands with multiple pipes**. That way we don't need any intermediate files!
+
+```bash
+wc -l *.pdb | sort -n
+wc -l *.pdb | sort -n | head -n 1
+```
+
+---
+
+![](https://swcarpentry.github.io/shell-novice/fig/redirects-and-pipes.svg)
+
+## Nelle’s Pipeline: Checking Files
+
+- Nelle has run her samples through the assay machines and created 17 files in `north-pacific-gyre`
+
+```bash
+cd north-pacific-gyre
+wc -l *.txt
+```
+
+## Nelle’s Pipeline: Checking Files
+
+- Nelle checks to see if any files are much **shorter** than the others
+
+```bash
+wc -l *.txt | sort -n | head -n 5
+```
+
+## Nelle’s Pipeline: Checking Files
+
+- Nelle checks to see if any files are much **longer** than the others
+
+```bash
+wc -l *.txt | sort -n | tail -n 5
+```
+
+```
+ 300 NENE02040B.txt
+ 300 NENE02040Z.txt
+ 300 NENE02043A.txt
+ 300 NENE02043B.txt
+5040 total
+```
+
+- What's that file with a `Z`?
+
+## Nelle’s Pipeline: Checking Files
+
+- All of Nelle's samples should be marked `A` or `B`; by convention, her lab uses `Z` to indicate samples with missing information. To find others like it, she does this:
+
+```
+ls *Z.txt
+```
+
+- Remember this for future exercises: Nelle will need to select files with `NENE*A.txt` or `NENE*B.txt`
+
+## Challenge: Removing Unneeded Files {.smaller}
+
+Suppose you want to delete your processed data files, and only keep your raw files and processing script to save storage.
+
+The raw files end in `.dat` and the processed files end in `.txt`.
+
+**Which of the following would remove all the processed data files, and *only* the processed data files?**
+
+1. `rm ?.txt`
+2. `rm *.txt`
+3. `rm * .txt`
+4. `rm *.*`
