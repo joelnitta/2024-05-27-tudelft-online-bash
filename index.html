@@ -326,13 +326,18 @@
     <div class="slides">
 
 
-<section>
 <section id="the-unix-shell" class="title-slide slide level1 center">
 <h1>The Unix Shell</h1>
 <p>SWC @ University of Twente</p>
 <p>2024-05-27</p>
 <p>Joel H. Nitta</p>
 <p><a href="https://joelnitta.github.io/2024-05-27-tudelft-online-bash" class="uri">https://joelnitta.github.io/2024-05-27-tudelft-online-bash</a></p>
+</section>
+
+<section>
+<section id="introduction" class="title-slide slide level1 center">
+<h1>Introduction</h1>
+
 </section>
 <section id="prep" class="slide level2">
 <h2>Prep</h2>
@@ -400,10 +405,14 @@ Documents   Library     Music       Public</code></pre>
 <li><p>Nelle’s Task: Process 1520 samples with <code>goostats.sh</code> to measure protein abundance.</p></li>
 <li><p>Challenge: Using a GUI, Nelle would need to manually run 1520 files, taking over 12 hours. <strong>Can Nelle do this more efficiently with the shell?</strong></p></li>
 </ul>
+</section></section>
+<section>
+<section id="navigating-files-and-folders" class="title-slide slide level1 center">
+<h1>Navigating files and folders</h1>
+
 </section>
-<section id="navigating-files-and-folders" class="slide level2">
-<h2>Navigating files and folders</h2>
-<h3 id="questions">Questions</h3>
+<section id="questions" class="slide level2">
+<h2>Questions</h2>
 <ul>
 <li><p>How can I move around on my computer?</p></li>
 <li><p>How can I see what files and directories I have?</p></li>
@@ -469,6 +478,17 @@ Documents   Library     Music       Public</code></pre>
 <p>Or, add <code>man</code> in front of the command:</p>
 <pre><code>man ls</code></pre>
 </section>
+<section id="challenge-ls" class="slide level2 smaller">
+<h2>Challenge: <code>ls</code></h2>
+<p><img data-src="https://swcarpentry.github.io/shell-novice/fig/filesystem-challenge.svg" height="400"></p>
+<p>If <code>pwd</code> displays <code>/Users/backup</code>, and <code>-r</code> tells <code>ls</code> to display things in reverse order, <strong>what command(s) will result in the following output:</strong></p>
+<pre><code>pnas_sub/ pnas_final/ original/</code></pre>
+<ol type="1">
+<li><code>ls pwd</code></li>
+<li><code>ls -r -F</code></li>
+<li><code>ls -r -F /Users/backup</code></li>
+</ol>
+</section>
 <section id="exploring-other-directories" class="slide level2">
 <h2>Exploring other directories</h2>
 <pre><code>ls -F Desktop</code></pre>
@@ -511,6 +531,232 @@ cd exercise-data</code></pre>
 <li><code>2012-12-01/ 2013-01-08/ 2013-01-27/</code></li>
 <li><code>original/ pnas_final/ pnas_sub/</code></li>
 </ol>
+</section>
+<section id="general-syntax-of-a-shell-command" class="slide level2">
+<h2>General Syntax of a Shell Command</h2>
+
+<img data-src="https://swcarpentry.github.io/shell-novice/fig/shell_command_syntax.svg" class="r-stretch"></section>
+<section id="general-syntax-of-a-shell-command-1" class="slide level2">
+<h2>General Syntax of a Shell Command</h2>
+<ul>
+<li>Options can usually be written in two ways:
+<ul>
+<li>Long form <code>--</code> (<code>ls --all</code>)</li>
+<li>Short form <code>-</code> (<code>ls -a</code>)</li>
+</ul></li>
+<li>Spaces matter (<code>ls-F</code> means the command “ls-F”)</li>
+<li>Capitalization matters (<code>ls -s</code> vs <code>ls -S</code>)</li>
+</ul>
+</section>
+<section id="tab-completion" class="slide level2">
+<h2>Tab completion</h2>
+<p>The shell will finish typing the names of files and folders for you when you press the tab key</p>
+<p>Try it from <code>~/Desktop/shell-lesson-data/</code></p>
+<pre><code>ls north-pacific-gyre/</code></pre>
+<pre><code>ls north-pacific-gyre/goo</code></pre>
+</section></section>
+<section>
+<section id="working-with-files-and-directories" class="title-slide slide level1 center">
+<h1>Working With Files and Directories</h1>
+
+</section>
+<section id="questions-1" class="slide level2">
+<h2>Questions</h2>
+<ul>
+<li><p>How can I create, copy, and delete files and directories?</p></li>
+<li><p>How can I edit files?</p></li>
+</ul>
+</section>
+<section id="make-a-new-directory-with-mkdir" class="slide level2">
+<h2>Make a new directory with <code>mkdir</code></h2>
+<ul>
+<li><p>Make sure we are in <code>shell-lesson-data</code>, then enter <code>exercise-data/writing</code></p></li>
+<li><p>Have a look around, then create a new directory called <code>thesis</code>:</p></li>
+</ul>
+<pre><code>mkdir thesis</code></pre>
+</section>
+<section id="make-a-new-directory-with-mkdir-1" class="slide level2">
+<h2>Make a new directory with <code>mkdir</code></h2>
+<p>You can create a nested directory using <code>-p</code></p>
+<pre><code>mkdir -p ../project/data ../project/results</code></pre>
+<p>Check what you did (<code>-R</code> option to the ls command will list all nested subdirectories within a directory):</p>
+<pre><code>ls -FR ../project</code></pre>
+</section>
+<section id="best-practices-names-for-files-and-directories" class="slide level2">
+<h2>Best practices: names for files and directories</h2>
+<ol type="1">
+<li>Don’t use spaces.</li>
+<li>Don’t begin the name with <code>-</code> (dash).</li>
+<li>Stick with letters, numbers, <code>.</code> (period or ‘full stop’), <code>-</code> (dash) and <code>_</code> (underscore).</li>
+</ol>
+</section>
+<section id="create-a-text-file" class="slide level2">
+<h2>Create a text file</h2>
+<p><code>nano</code> is a text editor program. It will create a file and open it for editing.</p>
+<pre><code>cd thesis
+nano draft.txt</code></pre>
+</section>
+<section class="slide level2">
+
+
+<img data-src="https://swcarpentry.github.io/shell-novice/fig/nano-screenshot.png" class="r-stretch"><p>Press <code>Ctrl+o</code> to save (as indicated by <code>^0</code>), then <code>Ctrl+x</code> to exit</p>
+</section>
+<section id="create-a-text-file-with-touch" class="slide level2">
+<h2>Create a text file with <code>touch</code></h2>
+<pre><code>touch my_file.txt</code></pre>
+</section>
+<section id="delete-a-file-with-rm" class="slide level2">
+<h2>Delete a file with <code>rm</code></h2>
+<pre><code>rm my_file.txt</code></pre>
+<ul>
+<li><code>rm</code> is forever! (no recycle bin). <strong>Be very careful</strong> when you use it.</li>
+</ul>
+</section>
+<section id="move-or-rename-files-and-folders-with-mv" class="slide level2">
+<h2>Move or rename files and folders with <code>mv</code></h2>
+<p>Enter <code>shell-lesson-data/exercise-data/writing</code>:</p>
+<pre><code>cd ~/Desktop/shell-lesson-data/exercise-data/writing</code></pre>
+<p>Let’s rename <code>draft.txt</code>:</p>
+<pre><code>mv thesis/draft.txt thesis/quotes.txt</code></pre>
+<p>(check the results with <code>ls</code>)</p>
+</section>
+<section id="move-or-rename-files-and-folders-with-mv-1" class="slide level2">
+<h2>Move or rename files and folders with <code>mv</code></h2>
+<ul>
+<li>Like <code>rm</code>, there is no “undo” button for <code>mv</code>: it will over-write any file with the same name, so <strong>use carefully!</strong></li>
+</ul>
+<p>Let’s move <code>quotes.txt</code> into our current directory:</p>
+<pre><code>mv thesis/quotes.txt .</code></pre>
+<p>Check <code>ls thesis</code></p>
+</section>
+<section id="copy-files-and-folders-with-cp" class="slide level2">
+<h2>Copy files and folders with <code>cp</code></h2>
+<ul>
+<li><code>cp</code> is similar to <code>mv</code>, but copies instead of moves</li>
+</ul>
+<pre><code>cp quotes.txt thesis/quotations.txt
+ls quotes.txt thesis/quotations.txt</code></pre>
+</section>
+<section id="copy-files-and-folders-with-cp-1" class="slide level2">
+<h2>Copy files and folders with <code>cp</code></h2>
+<ul>
+<li>Note that you can’t just <code>cp</code> a folder:</li>
+</ul>
+<pre><code>cp thesis thesis_backup</code></pre>
+<pre><code>cp: thesis is a directory (not copied).</code></pre>
+</section>
+<section id="copy-files-and-folders-with-cp-2" class="slide level2">
+<h2>Copy files and folders with <code>cp</code></h2>
+<ul>
+<li>To copy a folder and all its contents, use the <code>-r</code> (<strong>r</strong>ecursive) option</li>
+</ul>
+<pre><code>cp -r thesis thesis_backup</code></pre>
+</section>
+<section id="delete-folders-with-rm--r" class="slide level2">
+<h2>Delete folders with <code>rm -r</code></h2>
+<ul>
+<li>Similar to using <code>-r</code> for <code>cp</code>, you need <code>-r</code> to delete a folder:</li>
+</ul>
+<pre><code>rm -r thesis</code></pre>
+<ul>
+<li>Again, <strong>be careful!!</strong></li>
+</ul>
+</section>
+<section id="moving-copying-or-removing-multiple-files" class="slide level2">
+<h2>Moving, copying, or removing multiple files</h2>
+<ul>
+<li>You can move or copy multiple files to a folder by typing all the file names first, then the folder last.
+<ul>
+<li>Let’s test this in <code>shell-lesson-data/exercise-data</code>:</li>
+</ul></li>
+</ul>
+<pre><code>mkdir backup
+cp creatures/minotaur.dat creatures/unicorn.dat backup/</code></pre>
+</section>
+<section id="using-wildcards-for-accessing-multiple-files-at-once" class="slide level2">
+<h2>Using wildcards for accessing multiple files at once</h2>
+<ul>
+<li><p>Moving multiple files at once is handy, but that was a lot of typing</p></li>
+<li><p>We can use <code>*</code> and <code>?</code> to match multiple file names. These are called “wildcards”</p></li>
+</ul>
+</section>
+<section id="using-wildcards-for-accessing-multiple-files-at-once-1" class="slide level2">
+<h2>Using wildcards for accessing multiple files at once</h2>
+<ul>
+<li><p>Consider the files in <code>shell-lesson-data/exercise-data/alkanes</code>:</p></li>
+<li><p><code>*</code>: Represents zero or more characters.</p>
+<ul>
+<li>Example: <code>*.pdb</code> matches <code>ethane.pdb</code>, <code>propane.pdb</code>, etc.</li>
+<li>Example: <code>p*.pdb</code> matches <code>pentane.pdb</code>, <code>propane.pdb</code>.</li>
+</ul></li>
+</ul>
+</section>
+<section id="using-wildcards-for-accessing-multiple-files-at-once-2" class="slide level2">
+<h2>Using wildcards for accessing multiple files at once</h2>
+<ul>
+<li><code>?</code>: Represents exactly one character.
+<ul>
+<li>Example: <code>?ethane.pdb</code> matches <code>methane.pdb</code>.</li>
+<li>Example: <code>*ethane.pdb</code> matches <code>ethane.pdb</code>, <code>methane.pdb</code>.</li>
+<li>Example: <code>???ane.pdb</code> matches <code>cubane.pdb</code>, <code>ethane.pdb</code>, <code>octane.pdb</code>.</li>
+</ul></li>
+</ul>
+</section>
+<section id="wildcard-expansion" class="slide level2">
+<h2>Wildcard expansion</h2>
+<ul>
+<li>Shell expands wildcards to list matching filenames <strong>before running the command</strong>.</li>
+<li>If no match, the wildcard expression is passed as is.</li>
+<li>Example: <code>ls *.pdf</code> in a directory with only <code>.pdb</code> files results in an error.</li>
+</ul>
+</section>
+<section id="challenge-list-filenames-matching-a-pattern" class="slide level2">
+<h2>Challenge: List filenames matching a pattern</h2>
+<p>When run in the <code>alkanes</code> directory, which <code>ls</code> command(s) will produce this output?</p>
+<pre><code>ethane.pdb methane.pdb</code></pre>
+<ol type="1">
+<li><code>ls *t*ane.pdb</code></li>
+<li><code>ls *t?ne.*</code></li>
+<li><code>ls *t??ne.pdb</code></li>
+<li><code>ls ethane.*</code></li>
+</ol>
+</section>
+<section id="challenge-organizing" class="slide level2 smaller">
+<h2>Challenge: Organizing</h2>
+<p>Jamie is working on a project, and she sees that her files aren’t very well organized:</p>
+<pre><code>$ ls -F
+analyzed/  fructose.dat    raw/   sucrose.dat</code></pre>
+<p>The <code>fructose.dat</code> and <code>sucrose.dat</code> files contain output from her data analysis. <strong>What command(s) covered in this lesson does she need to run so that the commands below will produce the output shown?</strong></p>
+<pre><code>$ ls -F
+analyzed/   raw/</code></pre>
+<pre><code>$ ls analyzed
+fructose.dat    sucrose.dat</code></pre>
+</section>
+<section id="challenge-reproduce-a-file-structure" class="slide level2 smaller">
+<h2>Challenge: Reproduce a file structure</h2>
+<p>You’re starting a new experiment and would like to duplicate the directory structure from your previous experiment so you can add new data.</p>
+<p>Assume that the previous experiment is in a folder called <code>2016-05-18</code>, which contains a data folder that in turn contains folders named raw and processed that contain data files. The goal is to copy the folder structure of the <code>2016-05-18</code> folder into a folder called <code>2016-05-20</code> so that your final directory structure looks like this:</p>
+<pre><code>2016-05-20/
+└── data
+   ├── processed
+   └── raw</code></pre>
+<p><strong>Which of the following set of commands would achieve this objective? What would the other commands do?</strong></p>
+<p><a href="https://swcarpentry.github.io/shell-novice/03-create.html#reproduce-a-folder-structure">See answer options here</a></p>
+</section></section>
+<section>
+<section id="pipes-and-filters" class="title-slide slide level1 center">
+<h1>Pipes and Filters</h1>
+
+</section>
+<section id="questions-2" class="slide level2">
+<h2>Questions</h2>
+<ul>
+<li><p>How can I combine existing commands to produce a desired output?</p></li>
+<li><p>How can I show only part of the output?</p></li>
+</ul>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
