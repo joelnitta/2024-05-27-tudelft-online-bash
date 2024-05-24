@@ -958,9 +958,222 @@ Documents   Library     Music       Public</code></pre>
 <span id="cb46-8"><a href=""></a>2012-11-07,bear,1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>What are the contents of <code>final.txt</code>?</strong> (the <code>sort -r</code> command sorts in reverse)</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a href=""></a><span class="ex">$</span> cat animals.csv <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 5 <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 3 <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-r</span> <span class="op">&gt;</span> final.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section></section>
+<section>
+<section id="loops" class="title-slide slide level1 center">
+<h1><a href="https://swcarpentry.github.io/shell-novice/05-loop.html">Loops</a></h1>
+
+</section>
+<section id="questions-3" class="slide level2">
+<h2>Questions</h2>
+<ul>
+<li>How can I perform the same actions on many different files?</li>
+</ul>
+</section>
+<section id="about-loops" class="slide level2">
+<h2>About loops</h2>
+<ul>
+<li><strong>Loops</strong> allow us to repeat the same command as many times as needed
+<ul>
+<li>reduces typing effort</li>
+<li>minimizes typing mistakes</li>
+</ul></li>
+</ul>
+</section>
+<section id="using-loops-to-extract-data" class="slide level2 smaller">
+<h2>Using loops to extract data</h2>
+<ul>
+<li><p>Scenario: Extract classification from genome files.</p></li>
+<li><p>Files: <code>basilisk.dat</code>, <code>minotaur.dat</code>, <code>unicorn.dat</code> in <code>exercise-data/creatures</code></p></li>
+<li><p>Structure:</p>
+<ul>
+<li>1st line: Common name</li>
+<li>2nd line: Taxonomic classification</li>
+<li>3rd line: Updated date</li>
+<li>Following lines: DNA sequences</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb48"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href=""></a><span class="fu">head</span> <span class="at">-n</span> 5 basilisk.dat minotaur.dat unicorn.dat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="using-loops-to-extract-data-1" class="slide level2">
+<h2>Using loops to extract data</h2>
+<p>Our goal: <strong>Print the classification (2nd line) for each file.</strong></p>
+<p>General form of a loop:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a href=""></a><span class="cf">for</span> thing <span class="kw">in</span> list_of_things</span>
+<span id="cb49-2"><a href=""></a><span class="cf">do</span></span>
+<span id="cb49-3"><a href=""></a>    <span class="ex">operation_using/command</span> <span class="va">$thing</span></span>
+<span id="cb49-4"><a href=""></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="using-loops-to-extract-data-2" class="slide level2">
+<h2>Using loops to extract data</h2>
+<p>For our situation:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href=""></a><span class="ex">$</span> for filename in basilisk.dat minotaur.dat unicorn.dat</span>
+<span id="cb50-2"><a href=""></a><span class="op">&gt;</span> do</span>
+<span id="cb50-3"><a href=""></a><span class="op">&gt;</span>     echo <span class="va">$filename</span></span>
+<span id="cb50-4"><a href=""></a><span class="op">&gt;</span>     head <span class="ex">-n</span> 2 <span class="va">$filename</span> <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 1</span>
+<span id="cb50-5"><a href=""></a><span class="op">&gt;</span> done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>$filename</code> is a <strong>variable</strong> that gets filled in by the shell</p>
+</section>
+<section id="a-few-details" class="slide level2 smaller">
+<h2>A few details…</h2>
+<ul>
+<li><p>The shell prompt changes from <code>$</code> to <code>&gt;</code> and back again as we were typing in our loop.</p></li>
+<li><p>A semicolon, <code>;</code>, can be used to separate two commands written on a single line.</p></li>
+<li><p>If the <em>shell</em> prints <code>&gt;</code> or <code>$</code> then it expects you to type something, and the symbol is a prompt.</p></li>
+<li><p>If <em>you</em> type <code>&gt;</code> or <code>$</code> yourself, it is an instruction from you that the shell should redirect output or get the value of a variable.</p></li>
+<li><p>You can put the variable name in curly braces: <code>${filename}</code>. This makes it easier to distinguish the variable from surrounding text (like <code>${file}name</code>)</p></li>
+</ul>
+</section>
+<section id="hint-use-meaningful-variable-names" class="slide level2">
+<h2>Hint: use meaningful variable names</h2>
+<ul>
+<li>In the last example, we used <code>for filename</code> and <code>$filename</code>, but we could just have easily said <code>for x</code> and <code>$x</code>. <strong>Is this a good idea?</strong></li>
+</ul>
+<div class="fragment">
+<p><em>No</em>, because it is not clear <strong>what</strong> the variable refers to. It is better to use variable names that convey their meaning.</p>
+</div>
+</section>
+<section id="challenge-variables-in-loops" class="slide level2 smaller">
+<h2>Challenge: Variables in loops</h2>
+<p>This exercise refers to the <code>shell-lesson-data/exercise-data/alkanes</code> directory. <code>ls *.pdb</code> gives the following output:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode numberSource output number-lines code-with-copy"><code class="sourceCode"><span id="cb51-1"><a href=""></a>cubane.pdb  ethane.pdb  methane.pdb  octane.pdb  pentane.pdb  propane.pdb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>What is the output of the following code?</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb52-1"><a href=""></a><span class="ex">$</span> for datafile in <span class="pp">*</span>.pdb</span>
+<span id="cb52-2"><a href=""></a><span class="op">&gt;</span> do</span>
+<span id="cb52-3"><a href=""></a><span class="op">&gt;</span>     ls <span class="ex">*.pdb</span></span>
+<span id="cb52-4"><a href=""></a><span class="op">&gt;</span> done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now, what is the output of the following code?</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a href=""></a><span class="ex">$</span> for datafile in <span class="pp">*</span>.pdb</span>
+<span id="cb53-2"><a href=""></a><span class="op">&gt;</span> do</span>
+<span id="cb53-3"><a href=""></a><span class="op">&gt;</span>     ls <span class="va">$datafile</span></span>
+<span id="cb53-4"><a href=""></a><span class="op">&gt;</span> done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Why do these two loops give different outputs?</p>
+</section>
+<section id="challenge-limiting-sets-of-files-12" class="slide level2 smaller">
+<h2>Challenge: Limiting Sets of Files (1/2)</h2>
+<p>What would be the output of running the following loop in the <code>shell-lesson-data/exercise-data/alkanes</code> directory?</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb54-1"><a href=""></a><span class="ex">$</span> for filename in c<span class="pp">*</span></span>
+<span id="cb54-2"><a href=""></a><span class="op">&gt;</span> do</span>
+<span id="cb54-3"><a href=""></a><span class="op">&gt;</span>     ls <span class="va">$filename</span></span>
+<span id="cb54-4"><a href=""></a><span class="op">&gt;</span> done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol type="1">
+<li>No files are listed.</li>
+<li>All files are listed.</li>
+<li>Only <code>cubane.pdb</code>, <code>octane.pdb</code> and <code>pentane.pdb</code> are listed.</li>
+<li>Only <code>cubane.pdb</code> is listed.</li>
+</ol>
+</section>
+<section id="challenge-limiting-sets-of-files-22" class="slide level2 smaller">
+<h2>Challenge: Limiting Sets of Files (2/2)</h2>
+<p>How would the output differ from using this command instead?</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><a href=""></a><span class="ex">$</span> for filename in <span class="pp">*</span>c<span class="pp">*</span></span>
+<span id="cb55-2"><a href=""></a><span class="op">&gt;</span> do</span>
+<span id="cb55-3"><a href=""></a><span class="op">&gt;</span>     ls <span class="va">$filename</span></span>
+<span id="cb55-4"><a href=""></a><span class="op">&gt;</span> done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol type="1">
+<li>The same files would be listed.</li>
+<li>All the files are listed this time.</li>
+<li>No files are listed this time.</li>
+<li>The files <code>cubane.pdb</code> and <code>octane.pdb</code> will be listed.</li>
+<li>Only the file <code>octane.pdb</code> will be listed.</li>
+</ol>
+</section>
+<section id="challenge-saving-to-a-file-in-a-loop-12" class="slide level2 smaller">
+<h2>Challenge Saving to a File in a Loop (1/2)</h2>
+<p>In the <code>shell-lesson-data/exercise-data/alkanes</code> directory, what is the effect of this loop?</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb56-1"><a href=""></a><span class="cf">for</span> alkanes <span class="kw">in</span> <span class="pp">*</span>.pdb</span>
+<span id="cb56-2"><a href=""></a><span class="cf">do</span></span>
+<span id="cb56-3"><a href=""></a>    <span class="bu">echo</span> <span class="va">$alkanes</span></span>
+<span id="cb56-4"><a href=""></a>    <span class="fu">cat</span> <span class="va">$alkanes</span> <span class="op">&gt;</span> alkanes.pdb</span>
+<span id="cb56-5"><a href=""></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol type="1">
+<li>Prints <code>cubane.pdb</code>, <code>ethane.pdb</code>, <code>methane.pdb</code>, <code>octane.pdb</code>, <code>pentane.pdb</code> and <code>propane.pdb</code>, and the text from <code>propane.pdb</code> will be saved to a file called <code>alkanes.pdb</code>.</li>
+<li>Prints <code>cubane.pdb</code>, <code>ethane.pdb</code>, and <code>methane.pdb</code>, and the text from all three files would be concatenated and saved to a file called <code>alkanes.pdb</code>.</li>
+<li>Prints <code>cubane.pdb</code>, <code>ethane.pdb</code>, <code>methane.pdb</code>, <code>octane.pdb</code>, and <code>pentane.pdb</code>, and the text from <code>propane.pdb</code> will be saved to a file called <code>alkanes.pdb</code>.</li>
+<li>None of the above.</li>
+</ol>
+</section>
+<section id="saving-to-a-file-in-a-loop-22" class="slide level2 smaller">
+<h2>Saving to a File in a Loop (2/2)</h2>
+<p>Also in the <code>shell-lesson-data/exercise-data/alkanes</code> directory, what would be the output of the following loop?</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb57-1"><a href=""></a><span class="cf">for</span> datafile <span class="kw">in</span> <span class="pp">*</span>.pdb</span>
+<span id="cb57-2"><a href=""></a><span class="cf">do</span></span>
+<span id="cb57-3"><a href=""></a>    <span class="fu">cat</span> <span class="va">$datafile</span> <span class="op">&gt;&gt;</span> all.pdb</span>
+<span id="cb57-4"><a href=""></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol type="1">
+<li>All of the text from <code>cubane.pdb</code>, <code>ethane.pdb</code>, <code>methane.pdb</code>, <code>octane.pdb</code>, and <code>pentane.pdb</code> would be concatenated and saved to a file called <code>all.pdb</code>.</li>
+<li>The text from <code>ethane.pdb</code> will be saved to a file called <code>all.pdb</code>.</li>
+<li>All of the text from <code>cubane.pdb</code>, <code>ethane.pdb</code>, <code>methane.pdb</code>, <code>octane.pdb</code>, <code>pentane.pdb</code> and <code>propane.pdb</code> would be concatenated and saved to a file called <code>all.pdb</code>.</li>
+<li>All of the text from <code>cubane.pdb</code>, <code>ethane.pdb</code>, <code>methane.pdb</code>, <code>octane.pdb</code>, <code>pentane.pdb</code> and <code>propane.pdb</code> would be printed to the screen and saved to a file called <code>all.pdb</code>.</li>
+</ol>
+</section>
+<section id="nelles-pipeline-processing-files" class="slide level2">
+<h2>Nelle’s Pipeline: Processing Files</h2>
+<ul>
+<li><p>Context: Nelle needs to process protein sample files using <code>goostats.sh</code>.</p></li>
+<li><p>Script: <code>goostats.sh</code> calculates statistics from a protein sample file.</p>
+<ul>
+<li>Takes two arguments:
+<ul>
+<li>Input file: Raw data file.</li>
+<li>Output file: File to store calculated statistics.</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="nelles-pipeline-step-1" class="slide level2">
+<h2>Nelle’s Pipeline, step 1</h2>
+<ul>
+<li><p>Nelle decides to build commands step-by-step.</p></li>
+<li><p>Step 1: Select the right input files.</p>
+<ul>
+<li>Criteria: Filenames ending in <code>A</code> or <code>B</code>, not <code>Z</code>.</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb58"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a href=""></a><span class="ex">$</span> cd</span>
+<span id="cb58-2"><a href=""></a><span class="ex">$</span> cd Desktop/shell-lesson-data/north-pacific-gyre</span>
+<span id="cb58-3"><a href=""></a><span class="ex">$</span> for datafile in NENE<span class="pp">*</span>A.txt NENE<span class="pp">*</span>B.txt</span>
+<span id="cb58-4"><a href=""></a><span class="op">&gt;</span> do</span>
+<span id="cb58-5"><a href=""></a><span class="op">&gt;</span>     echo <span class="va">$datafile</span></span>
+<span id="cb58-6"><a href=""></a><span class="op">&gt;</span> done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="nelles-pipeline-step-2" class="slide level2">
+<h2>Nelle’s Pipeline, step 2</h2>
+<ul>
+<li><p>Next step: decide what to call the files that the <code>goostats.sh</code> analysis program will create.</p></li>
+<li><p>Prefixing each input file’s name with <code>stats</code> seems clear:</p></li>
+</ul>
+<div class="sourceCode" id="cb59"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb59-1"><a href=""></a><span class="ex">$</span> for datafile in NENE<span class="pp">*</span>A.txt NENE<span class="pp">*</span>B.txt</span>
+<span id="cb59-2"><a href=""></a><span class="op">&gt;</span> do</span>
+<span id="cb59-3"><a href=""></a><span class="op">&gt;</span>     echo <span class="va">$datafile</span> stats-<span class="va">$datafile</span></span>
+<span id="cb59-4"><a href=""></a><span class="op">&gt;</span> done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="nelles-pipeline-step-3" class="slide level2 smaller">
+<h2>Nelle’s Pipeline, step 3</h2>
+<ul>
+<li>Instead of typing in everything again, press the up arrow key:</li>
+</ul>
+<div class="sourceCode" id="cb60"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb60-1"><a href=""></a><span class="cf">for</span> datafile <span class="kw">in</span> NENE<span class="pp">*</span>A.txt NENE<span class="pp">*</span>B.txt<span class="kw">;</span> <span class="cf">do</span> <span class="bu">echo</span> <span class="va">$datafile</span> stats-<span class="va">$datafile</span><span class="kw">;</span> <span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>;</code> has the same effect as a line-break</p>
+<ul>
+<li>Go back into the command with the left-arrow key and edit it:</li>
+</ul>
+<div class="sourceCode" id="cb61"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb61-1"><a href=""></a><span class="cf">for</span> datafile <span class="kw">in</span> NENE<span class="pp">*</span>A.txt NENE<span class="pp">*</span>B.txt<span class="kw">;</span> <span class="cf">do</span> <span class="fu">bash</span> goostats.sh <span class="va">$datafile</span> stats-<span class="va">$datafile</span><span class="kw">;</span> <span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="nelles-pipeline-step-4" class="slide level2">
+<h2>Nelle’s Pipeline, step 4</h2>
+<ul>
+<li>Why don’t we see any output?</li>
+</ul>
+<div class="fragment">
+<p><code>goostats.sh</code> just writes out the results file without printing anything to the screen. Let’s kill the script with <code>Ctrl + c</code>, then add an <code>echo</code> to display the name of the file:</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb62-1"><a href=""></a><span class="cf">for</span> datafile <span class="kw">in</span> NENE<span class="pp">*</span>A.txt NENE<span class="pp">*</span>B.txt<span class="kw">;</span> <span class="cf">do</span> <span class="bu">echo</span> <span class="va">$datafile</span><span class="kw">;</span></span>
+<span id="cb62-2"><a href=""></a><span class="fu">bash</span> goostats.sh <span class="va">$datafile</span> stats-<span class="va">$datafile</span><span class="kw">;</span> <span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We can inspect the output by opening another shell window</p>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
 </div>
 </div>
 </section></section>
