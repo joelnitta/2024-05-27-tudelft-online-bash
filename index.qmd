@@ -39,7 +39,7 @@ For instructions by operating system, see the [Shell Lesson](https://swcarpentry
 
 - **CLI** (Unix shell): Efficient for repetitive tasks, automates tasks quickly.
 
-## The Shell
+## The Shell {.smaller}
 
 - The shell **interprets** and **runs** the commands typed by the user.
 
@@ -49,6 +49,7 @@ For instructions by operating system, see the [Shell Lesson](https://swcarpentry
   - Automates repetitive tasks
   - Efficient data handling with powerful pipelines
   - Essential for remote machine interaction and high-performance computing
+  - Many open-source software programs must be used via a CLI
 
 ---
 
