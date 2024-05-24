@@ -1060,3 +1060,193 @@ done
 # Script 3
 echo $@.pdb
 ```
+
+# [Finding things](https://swcarpentry.github.io/shell-novice/07-find.html)
+
+## What is `grep`?
+
+- "To grep something" has become a verb kind of like "To google something"
+
+- `grep` is a computer program that searches for text
+
+- Our examples will use haiku about programming that were featured in *Salon* magazine
+
+```bash
+cd 
+cd Desktop/shell-lesson-data/exercise-data/writing
+cat haiku.txt
+```
+
+## First `grep` example
+
+- Let's find lines of text with the word `not`:
+
+``` bash
+grep not haiku.txt
+```
+
+## Matching whole words
+
+- What happens when we search for `The`
+
+``` bash
+grep The haiku.txt
+```
+
+. . .
+
+- It matches `Thesis`. How can we match only the **whole word** `The`?
+  - Use `-w` (for "word")
+
+## Matching phrases
+
+- Use quotes
+
+``` bash
+grep -w "is not" haiku.txt
+```
+
+. . .
+
+- Actually, it's better to use quotes even with single words to make clear what you are searching for vs. the file you are searching
+
+## Display matching line numbers with `-n`
+
+``` bash
+grep -n "it" haiku.txt
+```
+
+## Combining options (flags)
+
+- `-n`: Show the line number
+- `-w`: Only match whole words
+- `-i`: Make search case-insensitive
+
+``` bash
+grep -n -w -i "the" haiku.txt
+```
+
+(you can also combine these into `-nwi`)
+
+## Inversion
+
+- *Invert* the search (match all **other** lines) with `-v`:
+
+``` bash
+grep -nwv "the" haiku.txt
+```
+
+## Recursive search
+
+- Match a string in **multiple** files with `-r`:
+
+``` bash
+grep -r "Yesterday" .
+```
+
+## Regular expressions
+
+- The `re` in `grep` stands for "Regular Expressions"
+
+- Regular expressions are kind of like wildcards: they can match certain patterns in text
+
+- This is one of the most **powerful** features of `grep`
+
+For example, this finds any text with an "o" as the second character (`-E` turns on matching via regular expressions, the `^` matches the start of a line, and the `.` matches any single character):
+
+``` bash
+ grep -E "^.o" haiku.txt
+```
+
+## Challenge: Using `grep`
+
+Which command would result in the following output:
+
+``` output
+and the presence of absence:
+```
+
+1.  `grep "of" haiku.txt`
+2.  `grep -E "of" haiku.txt`
+3.  `grep -w "of" haiku.txt`
+4.  `grep -i "of" haiku.txt`
+
+## About `find`
+
+- While `grep` finds lines in files, the `find` command finds files themselves.
+
+Try it out from `shell-lesson-data/exercise-data`:
+
+``` bash
+find .
+```
+
+## Find directories with `-type d`
+
+``` bash
+find . -type d
+```
+
+## Find files with `-type f`
+
+``` bash
+find . -type f
+```
+
+## Find files matching a particular name with `-name`
+
+``` bash
+find . -name *.txt
+```
+
+. . .
+
+Wait a sec - I thought there were more text files?
+
+- This behavior is because of **shell expansion**
+  - bash interpreted this command as `find . -name numbers.txt`
+
+## Find files matching a particular name with `-name`
+
+- We need to prevent the shell from expanding the names of files by putting that part in quotes
+
+``` bash
+find . -name "*.txt"
+```
+
+## Combining `wc` and `find`
+
+- Let's count lines of text in `.txt` files:
+
+``` bash
+wc -l $(find . -name "*.txt")
+```
+
+- The code in parenthesis gets run first
+
+## Combining `grep` and `find`
+
+- Let's find txt files that contain the word “searching” by looking for the string ‘searching’ in all the `.txt` files in the current directory:
+
+``` bash
+grep "searching" $(find . -name "*.txt")
+```
+
+## The power of small programs together
+
+- By combining relatively simple, small programs using techniques like `$()` and the pipe (`|`), we can achieve very powerful results with a small amount of code
+
+- This is the beauty of the shell!
+
+## Challenge: Matching and Subtracting {.smaller}
+
+Remember, the `-v` option to `grep` inverts pattern matching, so that only lines
+which do *not* match the pattern are printed. Given that, which of the
+following commands will find all .dat files in `creatures` except
+`unicorn.dat`? Once you have thought about your answer, you can test the
+commands in the `shell-lesson-data/exercise-data` directory.
+
+1.  `find creatures -name "*.dat" | grep -v unicorn`
+2.  `find creatures -name *.dat | grep -v unicorn`
+3.  `grep -v "unicorn" $(find creatures -name "*.dat")`
+4.  None of the above.

@@ -1295,6 +1295,175 @@ nano middle.sh</code></pre>
 <span id="cb75-5"><a href=""></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="sourceCode" id="cb76"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb76-1"><a href=""></a><span class="co"># Script 3</span></span>
 <span id="cb76-2"><a href=""></a><span class="bu">echo</span> <span class="va">$@</span>.pdb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section></section>
+<section>
+<section id="finding-things" class="title-slide slide level1 center">
+<h1><a href="https://swcarpentry.github.io/shell-novice/07-find.html">Finding things</a></h1>
+
+</section>
+<section id="what-is-grep" class="slide level2">
+<h2>What is <code>grep</code>?</h2>
+<ul>
+<li><p>“To grep something” has become a verb kind of like “To google something”</p></li>
+<li><p><code>grep</code> is a computer program that searches for text</p></li>
+<li><p>Our examples will use haiku about programming that were featured in <em>Salon</em> magazine</p></li>
+</ul>
+<div class="sourceCode" id="cb77"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb77-1"><a href=""></a><span class="bu">cd</span> </span>
+<span id="cb77-2"><a href=""></a><span class="bu">cd</span> Desktop/shell-lesson-data/exercise-data/writing</span>
+<span id="cb77-3"><a href=""></a><span class="fu">cat</span> haiku.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="first-grep-example" class="slide level2">
+<h2>First <code>grep</code> example</h2>
+<ul>
+<li>Let’s find lines of text with the word <code>not</code>:</li>
+</ul>
+<div class="sourceCode" id="cb78"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb78-1"><a href=""></a><span class="fu">grep</span> not haiku.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="matching-whole-words" class="slide level2">
+<h2>Matching whole words</h2>
+<ul>
+<li>What happens when we search for <code>The</code></li>
+</ul>
+<div class="sourceCode" id="cb79"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb79-1"><a href=""></a><span class="fu">grep</span> The haiku.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<ul>
+<li>It matches <code>Thesis</code>. How can we match only the <strong>whole word</strong> <code>The</code>?
+<ul>
+<li>Use <code>-w</code> (for “word”)</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="matching-phrases" class="slide level2">
+<h2>Matching phrases</h2>
+<ul>
+<li>Use quotes</li>
+</ul>
+<div class="sourceCode" id="cb80"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb80-1"><a href=""></a><span class="fu">grep</span> <span class="at">-w</span> <span class="st">"is not"</span> haiku.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<ul>
+<li>Actually, it’s better to use quotes even with single words to make clear what you are searching for vs.&nbsp;the file you are searching</li>
+</ul>
+</div>
+</section>
+<section id="display-matching-line-numbers-with--n" class="slide level2">
+<h2>Display matching line numbers with <code>-n</code></h2>
+<div class="sourceCode" id="cb81"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb81-1"><a href=""></a><span class="fu">grep</span> <span class="at">-n</span> <span class="st">"it"</span> haiku.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="combining-options-flags" class="slide level2">
+<h2>Combining options (flags)</h2>
+<ul>
+<li><code>-n</code>: Show the line number</li>
+<li><code>-w</code>: Only match whole words</li>
+<li><code>-i</code>: Make search case-insensitive</li>
+</ul>
+<div class="sourceCode" id="cb82"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb82-1"><a href=""></a><span class="fu">grep</span> <span class="at">-n</span> <span class="at">-w</span> <span class="at">-i</span> <span class="st">"the"</span> haiku.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>(you can also combine these into <code>-nwi</code>)</p>
+</section>
+<section id="inversion" class="slide level2">
+<h2>Inversion</h2>
+<ul>
+<li><em>Invert</em> the search (match all <strong>other</strong> lines) with <code>-v</code>:</li>
+</ul>
+<div class="sourceCode" id="cb83"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb83-1"><a href=""></a><span class="fu">grep</span> <span class="at">-nwv</span> <span class="st">"the"</span> haiku.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="recursive-search" class="slide level2">
+<h2>Recursive search</h2>
+<ul>
+<li>Match a string in <strong>multiple</strong> files with <code>-r</code>:</li>
+</ul>
+<div class="sourceCode" id="cb84"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb84-1"><a href=""></a><span class="fu">grep</span> <span class="at">-r</span> <span class="st">"Yesterday"</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="regular-expressions" class="slide level2">
+<h2>Regular expressions</h2>
+<ul>
+<li><p>The <code>re</code> in <code>grep</code> stands for “Regular Expressions”</p></li>
+<li><p>Regular expressions are kind of like wildcards: they can match certain patterns in text</p></li>
+<li><p>This is one of the most <strong>powerful</strong> features of <code>grep</code></p></li>
+</ul>
+<p>For example, this finds any text with an “o” as the second character (<code>-E</code> turns on matching via regular expressions, the <code>^</code> matches the start of a line, and the <code>.</code> matches any single character):</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb85-1"><a href=""></a> <span class="fu">grep</span> <span class="at">-E</span> <span class="st">"^.o"</span> haiku.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="challenge-using-grep" class="slide level2">
+<h2>Challenge: Using <code>grep</code></h2>
+<p>Which command would result in the following output:</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode numberSource output number-lines code-with-copy"><code class="sourceCode"><span id="cb86-1"><a href=""></a>and the presence of absence:</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol type="1">
+<li><code>grep "of" haiku.txt</code></li>
+<li><code>grep -E "of" haiku.txt</code></li>
+<li><code>grep -w "of" haiku.txt</code></li>
+<li><code>grep -i "of" haiku.txt</code></li>
+</ol>
+</section>
+<section id="about-find" class="slide level2">
+<h2>About <code>find</code></h2>
+<ul>
+<li>While <code>grep</code> finds lines in files, the <code>find</code> command finds files themselves.</li>
+</ul>
+<p>Try it out from <code>shell-lesson-data/exercise-data</code>:</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb87-1"><a href=""></a><span class="fu">find</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="find-directories-with--type-d" class="slide level2">
+<h2>Find directories with <code>-type d</code></h2>
+<div class="sourceCode" id="cb88"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb88-1"><a href=""></a><span class="fu">find</span> . <span class="at">-type</span> d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="find-files-with--type-f" class="slide level2">
+<h2>Find files with <code>-type f</code></h2>
+<div class="sourceCode" id="cb89"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb89-1"><a href=""></a><span class="fu">find</span> . <span class="at">-type</span> f</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="find-files-matching-a-particular-name-with--name" class="slide level2">
+<h2>Find files matching a particular name with <code>-name</code></h2>
+<div class="sourceCode" id="cb90"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb90-1"><a href=""></a><span class="fu">find</span> . <span class="at">-name</span> <span class="pp">*</span>.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<p>Wait a sec - I thought there were more text files?</p>
+<ul>
+<li>This behavior is because of <strong>shell expansion</strong>
+<ul>
+<li>bash interpreted this command as <code>find . -name numbers.txt</code></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="find-files-matching-a-particular-name-with--name-1" class="slide level2">
+<h2>Find files matching a particular name with <code>-name</code></h2>
+<ul>
+<li>We need to prevent the shell from expanding the names of files by putting that part in quotes</li>
+</ul>
+<div class="sourceCode" id="cb91"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb91-1"><a href=""></a><span class="fu">find</span> . <span class="at">-name</span> <span class="st">"*.txt"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="combining-wc-and-find" class="slide level2">
+<h2>Combining <code>wc</code> and <code>find</code></h2>
+<ul>
+<li>Let’s count lines of text in <code>.txt</code> files:</li>
+</ul>
+<div class="sourceCode" id="cb92"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb92-1"><a href=""></a><span class="fu">wc</span> <span class="at">-l</span> <span class="va">$(</span><span class="fu">find</span> . <span class="at">-name</span> <span class="st">"*.txt"</span><span class="va">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>The code in parenthesis gets run first</li>
+</ul>
+</section>
+<section id="combining-grep-and-find" class="slide level2">
+<h2>Combining <code>grep</code> and <code>find</code></h2>
+<ul>
+<li>Let’s find txt files that contain the word “searching” by looking for the string ‘searching’ in all the <code>.txt</code> files in the current directory:</li>
+</ul>
+<div class="sourceCode" id="cb93"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb93-1"><a href=""></a><span class="fu">grep</span> <span class="st">"searching"</span> <span class="va">$(</span><span class="fu">find</span> . <span class="at">-name</span> <span class="st">"*.txt"</span><span class="va">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="the-power-of-small-programs-together" class="slide level2">
+<h2>The power of small programs together</h2>
+<ul>
+<li><p>By combining relatively simple, small programs using techniques like <code>$()</code> and the pipe (<code>|</code>), we can achieve very powerful results with a small amount of code</p></li>
+<li><p>This is the beauty of the shell!</p></li>
+</ul>
+</section>
+<section id="challenge-matching-and-subtracting" class="slide level2 smaller">
+<h2>Challenge: Matching and Subtracting</h2>
+<p>Remember, the <code>-v</code> option to <code>grep</code> inverts pattern matching, so that only lines which do <em>not</em> match the pattern are printed. Given that, which of the following commands will find all .dat files in <code>creatures</code> except <code>unicorn.dat</code>? Once you have thought about your answer, you can test the commands in the <code>shell-lesson-data/exercise-data</code> directory.</p>
+<ol type="1">
+<li><code>find creatures -name "*.dat" | grep -v unicorn</code></li>
+<li><code>find creatures -name *.dat | grep -v unicorn</code></li>
+<li><code>grep -v "unicorn" $(find creatures -name "*.dat")</code></li>
+<li>None of the above.</li>
+</ol>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
