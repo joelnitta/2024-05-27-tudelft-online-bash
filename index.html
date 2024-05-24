@@ -944,6 +944,20 @@ Documents   Library     Music       Public</code></pre>
 <li><code>rm * .txt</code></li>
 <li><code>rm *.*</code></li>
 </ol>
+</section>
+<section id="challenge-pipe-reading" class="slide level2 smaller">
+<h2>Challenge: Pipe Reading</h2>
+<p>A file called <code>animals.csv</code> (in the <code>shell-lesson-data/exercise-data/animal-counts</code> folder) contains the following data:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode numberSource source number-lines code-with-copy"><code class="sourceCode"><span id="cb46-1"><a href=""></a>2012-11-05,deer,5</span>
+<span id="cb46-2"><a href=""></a>2012-11-05,rabbit,22</span>
+<span id="cb46-3"><a href=""></a>2012-11-05,raccoon,7</span>
+<span id="cb46-4"><a href=""></a>2012-11-06,rabbit,19</span>
+<span id="cb46-5"><a href=""></a>2012-11-06,deer,2</span>
+<span id="cb46-6"><a href=""></a>2012-11-06,fox,4</span>
+<span id="cb46-7"><a href=""></a>2012-11-07,rabbit,16</span>
+<span id="cb46-8"><a href=""></a>2012-11-07,bear,1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>What are the contents of <code>final.txt</code>?</strong> (the <code>sort -r</code> command sorts in reverse)</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a href=""></a><span class="ex">$</span> cat animals.csv <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 5 <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 3 <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-r</span> <span class="op">&gt;</span> final.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 

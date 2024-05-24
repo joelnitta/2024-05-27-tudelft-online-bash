@@ -627,3 +627,24 @@ The raw files end in `.dat` and the processed files end in `.txt`.
 2. `rm *.txt`
 3. `rm * .txt`
 4. `rm *.*`
+
+## Challenge: Pipe Reading {.smaller}
+
+A file called `animals.csv` (in the `shell-lesson-data/exercise-data/animal-counts` folder) contains the following data:
+
+``` source
+2012-11-05,deer,5
+2012-11-05,rabbit,22
+2012-11-05,raccoon,7
+2012-11-06,rabbit,19
+2012-11-06,deer,2
+2012-11-06,fox,4
+2012-11-07,rabbit,16
+2012-11-07,bear,1
+```
+
+**What are the contents of `final.txt`?** (the `sort -r` command sorts in reverse)
+
+``` bash
+$ cat animals.csv | head -n 5 | tail -n 3 | sort -r > final.txt
+```
