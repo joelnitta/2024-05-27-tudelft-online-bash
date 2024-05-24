@@ -1235,22 +1235,13 @@ nano middle.sh</code></pre>
 </ul>
 <div class="sourceCode" id="cb68"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb68-1"><a href=""></a><span class="fu">bash</span> middle.sh pentane.pdb 15 5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="adding-comments" class="slide level2">
-<h2>Adding comments</h2>
-<ul>
-<li>We can make our script easier to understanding by providing some <strong>comments</strong> that explain how it works:</li>
-</ul>
-<div class="sourceCode" id="cb69"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb69-1"><a href=""></a><span class="co"># Select lines from the middle of a file.</span></span>
-<span id="cb69-2"><a href=""></a><span class="co"># Usage: bash middle.sh filename end_line num_lines</span></span>
-<span id="cb69-3"><a href=""></a><span class="fu">head</span> <span class="at">-n</span> <span class="st">"</span><span class="va">$2</span><span class="st">"</span> <span class="st">"</span><span class="va">$1</span><span class="st">"</span> <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> <span class="st">"</span><span class="va">$3</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
 <section id="challenge-variables-in-shell-scripts" class="slide level2 smaller">
 <h2>Challenge: Variables in Shell Scripts</h2>
 <p>In the <code>alkanes</code> directory, imagine you have a shell script called <code>script.sh</code> containing the following commands:</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb70-1"><a href=""></a><span class="fu">head</span> <span class="at">-n</span> <span class="va">$2</span> <span class="va">$1</span></span>
-<span id="cb70-2"><a href=""></a><span class="fu">tail</span> <span class="at">-n</span> <span class="va">$3</span> <span class="va">$1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb69-1"><a href=""></a><span class="fu">head</span> <span class="at">-n</span> <span class="va">$2</span> <span class="va">$1</span></span>
+<span id="cb69-2"><a href=""></a><span class="fu">tail</span> <span class="at">-n</span> <span class="va">$3</span> <span class="va">$1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>While you are in the <code>alkanes</code> directory, you type the following command:</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb71-1"><a href=""></a><span class="ex">$</span> bash script.sh <span class="st">'*.pdb'</span> 1 1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb70-1"><a href=""></a><span class="ex">$</span> bash script.sh <span class="st">'*.pdb'</span> 1 1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Which of the following outputs would you expect to see?</p>
 <ol type="1">
 <li>All of the lines between the first and the last lines of each file ending in <code>.pdb</code> in the <code>alkanes</code> directory</li>
@@ -1259,18 +1250,51 @@ nano middle.sh</code></pre>
 <li>An error because of the quotes around <code>*.pdb</code></li>
 </ol>
 </section>
+<section id="adding-comments" class="slide level2">
+<h2>Adding comments</h2>
+<ul>
+<li>We can make our script easier to understanding by providing some <strong>comments</strong> that explain how it works:</li>
+</ul>
+<div class="sourceCode" id="cb71"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb71-1"><a href=""></a><span class="co"># Select lines from the middle of a file.</span></span>
+<span id="cb71-2"><a href=""></a><span class="co"># Usage: bash middle.sh filename end_line num_lines</span></span>
+<span id="cb71-3"><a href=""></a><span class="fu">head</span> <span class="at">-n</span> <span class="st">"</span><span class="va">$2</span><span class="st">"</span> <span class="st">"</span><span class="va">$1</span><span class="st">"</span> <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> <span class="st">"</span><span class="va">$3</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="processing-many-files-in-a-script" class="slide level2">
+<h2>Processing many files in a script</h2>
+<ul>
+<li><p>So far, we have been able to input one file into a script with something like <code>"$1"</code></p></li>
+<li><p>But what if we have many files we want to input?</p></li>
+</ul>
+<div class="fragment">
+<p>Solution: <code>"$@"</code></p>
+<ul>
+<li><code>"$@"</code> means ‘All of the command-line arguments to the shell script’</li>
+</ul>
+</div>
+</section>
+<section id="processing-many-files-in-a-script-1" class="slide level2">
+<h2>Processing many files in a script</h2>
+<ul>
+<li>Example: a script to sort files by their length, called <code>sorted.sh</code></li>
+</ul>
+<div class="sourceCode" id="cb72"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb72-1"><a href=""></a><span class="co"># Sort files by their length.</span></span>
+<span id="cb72-2"><a href=""></a><span class="co"># Usage: bash sorted.sh one_or_more_filenames</span></span>
+<span id="cb72-3"><a href=""></a><span class="fu">wc</span> <span class="at">-l</span> <span class="st">"</span><span class="va">$@</span><span class="st">"</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-n</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Try it!</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb73-1"><a href=""></a><span class="fu">bash</span> sorted.sh <span class="pp">*</span>.pdb ../creatures/<span class="pp">*</span>.dat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
 <section id="challenge-script-reading" class="slide level2 smaller">
 <h2>Challenge: Script Reading</h2>
 <p>For this question, consider the <code>shell-lesson-data/exercise-data/alkanes</code> directory once again. This contains a number of <code>.pdb</code> files in addition to any other files you may have created. Explain what each of the following three scripts would do when run as <code>bash script1.sh *.pdb</code>, <code>bash script2.sh *.pdb</code>, and <code>bash script3.sh *.pdb</code> respectively.</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb72-1"><a href=""></a><span class="co"># Script 1</span></span>
-<span id="cb72-2"><a href=""></a><span class="bu">echo</span> <span class="pp">*</span>.<span class="pp">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb73"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb73-1"><a href=""></a><span class="co"># Script 2</span></span>
-<span id="cb73-2"><a href=""></a><span class="cf">for</span> filename <span class="kw">in</span> <span class="va">$1</span> <span class="va">$2</span> <span class="va">$3</span></span>
-<span id="cb73-3"><a href=""></a><span class="cf">do</span></span>
-<span id="cb73-4"><a href=""></a>    <span class="fu">cat</span> <span class="va">$filename</span></span>
-<span id="cb73-5"><a href=""></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb74"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb74-1"><a href=""></a><span class="co"># Script 3</span></span>
-<span id="cb74-2"><a href=""></a><span class="bu">echo</span> <span class="va">$@</span>.pdb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb74-1"><a href=""></a><span class="co"># Script 1</span></span>
+<span id="cb74-2"><a href=""></a><span class="bu">echo</span> <span class="pp">*</span>.<span class="pp">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb75-1"><a href=""></a><span class="co"># Script 2</span></span>
+<span id="cb75-2"><a href=""></a><span class="cf">for</span> filename <span class="kw">in</span> <span class="va">$1</span> <span class="va">$2</span> <span class="va">$3</span></span>
+<span id="cb75-3"><a href=""></a><span class="cf">do</span></span>
+<span id="cb75-4"><a href=""></a>    <span class="fu">cat</span> <span class="va">$filename</span></span>
+<span id="cb75-5"><a href=""></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb76-1"><a href=""></a><span class="co"># Script 3</span></span>
+<span id="cb76-2"><a href=""></a><span class="bu">echo</span> <span class="va">$@</span>.pdb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 

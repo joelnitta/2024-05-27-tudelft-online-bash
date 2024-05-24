@@ -1012,7 +1012,7 @@ head -n "$2" "$1" | tail -n "$3"
 
 - But what if we have many files we want to input?
 
----
+. . .
 
 Solution: `"$@"`
 
