@@ -902,3 +902,133 @@ bash goostats.sh $datafile stats-$datafile; done
 ```
 
 We can inspect the output by opening another shell window
+
+# [Shell Scripts](https://swcarpentry.github.io/shell-novice/06-script.html)
+
+## The Power of Shell Scripts
+
+- Scripts are small programs that **automate tasks**.
+  - Save frequently used commands in files.
+  - Re-run operations with a single command.
+    
+- Advantages:
+  - Speed: Faster execution of repeated tasks.
+  - Accuracy: Fewer typos.
+  - Reproducibility: Easy to reproduce results later.
+
+## First script
+
+- Navigate to `alkanes/`.
+- Create a new script file `middle.sh` and open it with `nano`:
+
+```
+cd alkanes
+nano middle.sh
+```
+
+## First script
+
+Type this in the script (it should look familiar):
+
+```bash
+head -n 15 octane.pdb | tail -n 5
+```
+
+Now we can run the script:
+
+```bash
+bash middle.sh
+```
+
+## Using a variable in a script
+
+- This script would be much more useful if we could run it on any file, not just `octane.pdb`.
+
+- Open it again in `nano` and modify it like so:
+
+```bash
+head -n 15 "$1" | tail -n 5
+```
+
+The `"$1"` means ‘the first filename (or other argument) on the command line’. Try it out!
+
+## About double quotes
+
+- We use the double quotes in case any filenames that you enter may have spaces (otherwise the shell would think they are two arguments)
+
+## Using multiple variables
+
+- We can make our script even more flexible (and useful) by allowing the user to specify the starting and ending lines:
+
+```bash
+head -n "$2" "$1" | tail -n "$3"
+```
+
+- Try it out!
+
+```bash
+bash middle.sh pentane.pdb 15 5
+```
+
+## Adding comments
+
+- We can make our script easier to understanding by providing some **comments** that explain how it works:
+
+```bash
+# Select lines from the middle of a file.
+# Usage: bash middle.sh filename end_line num_lines
+head -n "$2" "$1" | tail -n "$3"
+```
+
+## Challenge: Variables in Shell Scripts {.smaller}
+
+In the `alkanes` directory, imagine you have a shell script called
+`script.sh` containing the following commands:
+
+``` bash
+head -n $2 $1
+tail -n $3 $1
+```
+
+While you are in the `alkanes` directory, you type the following
+command:
+
+``` bash
+$ bash script.sh '*.pdb' 1 1
+```
+
+Which of the following outputs would you expect to see?
+
+1.  All of the lines between the first and the last lines of each file
+    ending in `.pdb` in the `alkanes` directory
+2.  The first and the last line of each file ending in `.pdb` in the
+    `alkanes` directory
+3.  The first and the last line of each file in the `alkanes` directory
+4.  An error because of the quotes around `*.pdb`
+
+## Challenge: Script Reading {.smaller}
+
+For this question, consider the
+`shell-lesson-data/exercise-data/alkanes` directory once again. This
+contains a number of `.pdb` files in addition to any other files you may
+have created. Explain what each of the following three scripts would do
+when run as `bash script1.sh *.pdb`, `bash script2.sh *.pdb`, and
+`bash script3.sh *.pdb` respectively.
+
+``` bash
+# Script 1
+echo *.*
+```
+
+``` bash
+# Script 2
+for filename in $1 $2 $3
+do
+    cat $filename
+done
+```
+
+``` bash
+# Script 3
+echo $@.pdb
+```
