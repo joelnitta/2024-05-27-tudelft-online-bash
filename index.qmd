@@ -256,6 +256,8 @@ ls north-pacific-gyre/
 ls north-pacific-gyre/goo
 ```
 
+(press the tab key twice to see what files start with `goo`)
+
 # [Working With Files and Directories](https://swcarpentry.github.io/shell-novice/03-create.html)
 
 ## Questions
@@ -307,7 +309,7 @@ nano draft.txt
 
 ![](https://swcarpentry.github.io/shell-novice/fig/nano-screenshot.png)
 
-Press `Ctrl+o` to save (as indicated by `^0`), then `Ctrl+x` to exit
+Press `Ctrl+o` to save (as indicated by `^O`), then `Ctrl+x` to exit
 
 ## Create a text file with `touch`
 
@@ -369,7 +371,7 @@ cp thesis thesis_backup
 ```
 
 ```
-cp: thesis is a directory (not copied).
+cp: -r not specified; omitting directory 'thesis'
 ```
 
 ## Copy files and folders with `cp`

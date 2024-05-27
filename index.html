@@ -627,6 +627,7 @@ Documents   Library     Music       Public</code></pre>
 <p>Try it from <code>~/Desktop/shell-lesson-data/</code></p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href=""></a><span class="fu">ls</span> north-pacific-gyre/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="sourceCode" id="cb13"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href=""></a><span class="fu">ls</span> north-pacific-gyre/goo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>(press the tab key twice to see what files start with <code>goo</code>)</p>
 </section></section>
 <section>
 <section id="working-with-files-and-directories" class="title-slide slide level1 center">
@@ -672,7 +673,7 @@ Documents   Library     Music       Public</code></pre>
 <section class="slide level2">
 
 
-<img data-src="https://swcarpentry.github.io/shell-novice/fig/nano-screenshot.png" class="r-stretch"><p>Press <code>Ctrl+o</code> to save (as indicated by <code>^0</code>), then <code>Ctrl+x</code> to exit</p>
+<img data-src="https://swcarpentry.github.io/shell-novice/fig/nano-screenshot.png" class="r-stretch"><p>Press <code>Ctrl+o</code> to save (as indicated by <code>^O</code>), then <code>Ctrl+x</code> to exit</p>
 </section>
 <section id="create-a-text-file-with-touch" class="slide level2">
 <h2>Create a text file with <code>touch</code></h2>
@@ -716,7 +717,7 @@ Documents   Library     Music       Public</code></pre>
 <li>Note that you can’t just <code>cp</code> a folder:</li>
 </ul>
 <div class="sourceCode" id="cb24"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href=""></a><span class="fu">cp</span> thesis thesis_backup</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre><code>cp: thesis is a directory (not copied).</code></pre>
+<pre><code>cp: -r not specified; omitting directory 'thesis'</code></pre>
 </section>
 <section id="copy-files-and-folders-with-cp-2" class="slide level2">
 <h2>Copy files and folders with <code>cp</code></h2>
